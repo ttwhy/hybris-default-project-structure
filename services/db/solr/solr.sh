@@ -1,10 +1,10 @@
 #!/bin/bash
 
-containerName=projectNameSolr
+baseDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+containerName="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd "../../.." && basename `pwd` )"-solr
 
 #solr version
 version=5.3
-baseDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 docker run --name $containerName \
 -d -p 8983:8983 \
