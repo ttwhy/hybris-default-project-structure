@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="project_buildcallbacks">
+
+	<!--
+		This macro is used to search for config environments and add them as the external config dir
+
+        This is only useful if you do not manage your optional config dir without System environment variables.
+	-->
+	 
+	<macrodef name="_before_customize">
+		<sequential>
+			<dirset id="envs" dir="${HYBRIS_CONFIG_DIR}/environment/">
+				<include name="*/**"/>
+			</dirset>
+			<pathconvert refid="envs" property="config.env.templates" pathsep=","/>
+			
+			<property name="config.template.default" value="develop"/>
+			
+			<propertyregex property="config.template"
+				input="${config.env.templates}"
+				regexp=",(.*${config.template.default})"
+				select="\1"
+				casesensitive="false"/>
+			
+			<input message="Which environment should be used to customize?" validargs="${config.env.templates}" addproperty="customize.environment" defaultvalue="${config.template}"/>
+			
+			<propertyfile file="${HYBRIS_CONFIG_DIR}/local.properties">
+				<entry key="hybris.optional.config.dir" value="${customize.environment}"/>
+			</propertyfile>
+		</sequential>
+	</macrodef>
+	 
+</project>
