@@ -10,3 +10,11 @@ Suggested usage:
 
 ## Kickstart for development
 Please review the documentation within the build directory
+
+
+# Usage
+## Configuration
+use ant customize to select the currently active configuration. 
+
+Only add global configuration parts to the config/local.properties. All System specifc parts should be placed into the config/environments/SYSTEM/ directory
+
